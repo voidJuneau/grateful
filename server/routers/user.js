@@ -3,7 +3,7 @@ const User = require('../models/user');
 const auth = require('../middleware/auth');
 const router = express.Router();
 
-router.post('/api/signin', async (req, res) => {
+router.post('/api/user/signin', async (req, res) => {
     try {
         const user = new User(req.body);
         await user.save();
@@ -14,7 +14,7 @@ router.post('/api/signin', async (req, res) => {
     }
 })  
 
-router.get('/api/login', async (req, res) => {
+router.get('/api/user/login', async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.username, req.body.password);
         const token = await user.generateAuthToken();
@@ -24,11 +24,11 @@ router.get('/api/login', async (req, res) => {
     }
 })
 
-router.get('/api/me', auth, async (req, res) => {
+router.get('/api/user/me', auth, async (req, res) => {
     res.send(req.user)
 })
 
-router.post('/api/logout', auth, async (req, res) => {
+router.post('/api/user/logout', auth, async (req, res) => {
     try {
         req.user.tokens = req.user.tokens.filter(token => token.token != req.token);
         await req.user.save();
