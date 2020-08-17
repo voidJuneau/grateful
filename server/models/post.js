@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 
 const postSchema = mongoose.Schema({
-    contents: {
+    content: {
         type: String,
         required: true,
         trim: true
+        //TODO: bad word filter
     },
     public: {
         type: Boolean,
