@@ -1,5 +1,5 @@
 const express = require('express');
-const Post = require('../models/post')
+const Post = require('../models/post');
 const auth = require('../middleware/auth');
 const Task = require('../../../node/task-manager/src/models/task');
 const router = express.Router();
@@ -15,6 +15,14 @@ router.post('/api/post/new', auth, async (req, res) => {
     } catch(e) {
         res.status(400).send(e);
     }
+})
+
+router.get('/api/post/one', async (req, res) => {
+    // TODO: random
+    Post.findOne({public: true}, async (err, post) => {
+        if (err) return res.status(500).send(err);
+        res.send(post);
+    })
 })
 
 router.get('/api/post/all', async (req, res) => {
