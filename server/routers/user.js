@@ -38,4 +38,19 @@ router.post('/api/user/logout', auth, async (req, res) => {
     }
 })
 
+router.get('api/user/:id', async (req, res) => {
+    // TODO: test
+    let user = User.findById(req.params.id)
+    if (user) {
+        res.send(user)
+    } else {
+        res.status(400).send({error: "user not found"})
+    }
+})
+
+router.patch('api/user/:id', auth, async (req, res) => {
+    if (req.params.id !== req.user._id) return res.status(400).send();
+    // TODO : body
+})
+
 module.exports = router;
