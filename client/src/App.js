@@ -1,48 +1,35 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  Switch,
+} from "react-router-dom";
 import './App.css';
 
-class App extends Component {
-  state = {
-    apost: ''
-  }
+const App = () => {
+  return (
+    <Router>
+      <NavHeader />
+      <Container>
+        <Switch>
+          <Route path="/" exact>
+            <Main />
+          </Route>
+          <Route path="/join">
 
-  componentDidMount() {
-    this.callApi()
-      .then(res => this.setState({ apost: res.express }))
-      .then(res => console.group(res))
-      .catch(err => console.log(err));
-  }
+          </Route>
+          <Route path="/login">
 
-  callApi = async () => {
-    const response = await fetch('/api/post/one');
-    const body = await response.json();
-    if (response.status !== 200) throw Error(body.message);
-    return body;
-  }
+          </Route>
+          <Route path="/posts">
 
-  // handleSubmit = async e => {
-  //   e.preventDefault();
-  //   const response = await fetch('/api/post/new', {
-  //     method: 'POST',
-  //     header: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({post: this.state.post})
-  //   });
-  //   const body = await response.text();
-
-  //   this.setState({responseToPost: body});
-  // }
-
-
-  render() {
-    return (
-      <div className="App">
-        <p>{this.state.apost}</p>
-      </div>
-    );
-  }
+          </Route>
+          <Redirect to="/" />
+        </Switch>
+      </Container>
+    </Router>
+  )
 }
 
 export default App;
