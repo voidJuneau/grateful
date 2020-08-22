@@ -5,29 +5,35 @@ import {
   Redirect,
   Switch,
 } from "react-router-dom";
+
+import Main from './pages/Main'
+import Navigation from './components/Navigation/Navigation'
 import './App.css';
 
 const App = () => {
   return (
     <Router>
-      <NavHeader />
-      <Container>
+      <Navigation />
+      {/* <Container> */}
         <Switch>
           <Route path="/" exact>
             <Main />
           </Route>
-          <Route path="/join">
+          <Route path="/new">
 
           </Route>
-          <Route path="/login">
+          <Route path="/all">
 
           </Route>
-          <Route path="/posts">
+          <Route path="/me">
+
+          </Route>
+          <Route path="/auth">
 
           </Route>
           <Redirect to="/" />
         </Switch>
-      </Container>
+      {/* </Container> */}
     </Router>
   )
 }
