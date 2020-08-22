@@ -8,12 +8,13 @@ import {
 import styled from 'styled-components';
 
 import Main from './pages/Main'
+import Posts from './pages/Posts'
 import Navigation from './components/Navigation/Navigation'
 import './App.css';
 
 const App = () => {
   const Container = styled.div`
-    margin: 0 auto;
+    margin: 5em auto 0 auto;
     max-width: 768px;
   `
 
@@ -29,7 +30,7 @@ const App = () => {
 
           </Route>
           <Route path="/all">
-
+            <Posts />
           </Route>
           <Route path="/me">
 
