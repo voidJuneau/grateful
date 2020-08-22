@@ -35,6 +35,9 @@ const Main = () => {
     -moz-text-fill-color: transparent;
 
     @media (min-width: 768px) {
+      font-size: 4em;
+    }
+    @media (min-width: 576px) {
       font-size: 3em;
     }
   `
