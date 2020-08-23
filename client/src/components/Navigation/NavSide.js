@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
 
 const NavSide = props => {
@@ -17,19 +16,9 @@ const NavSide = props => {
       display: none;
   `
 
-  const content = (
-    <CSSTransition
-      in={props.show}
-      timeout={200}
-      classNames="slide-in-left"
-      mountOnEnter
-      unmountOnExit
-    >
-      <Aside onClick={props.onClick}>{props.children}</Aside>
-    </CSSTransition>
-  )
-
-  return ReactDOM.createPortal(content, document.getElementById("side-hook"));
+  return ReactDOM.createPortal((
+    props.show && <Aside onClick={props.onClick}>{props.children}</Aside>
+  ), document.getElementById("side-hook"));
 };
 
 export default NavSide;
