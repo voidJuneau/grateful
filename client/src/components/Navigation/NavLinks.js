@@ -44,7 +44,7 @@ const NavLinks = props => {
         <NavLinkA to="/me">Profile</NavLinkA>
       </Li>
       <Li>
-        <NavLinkA to="/auth">Auth</NavLinkA>
+        <NavLinkA to="/join">Start</NavLinkA>
       </Li>
     </NavUl>
   );

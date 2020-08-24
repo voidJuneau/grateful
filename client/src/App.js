@@ -1,4 +1,4 @@
-import React, { Component, useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -9,6 +9,7 @@ import styled from 'styled-components';
 
 import Main from './pages/Main'
 import Posts from './pages/Posts'
+import Join from './pages/Join'
 import Navigation from './components/Navigation/Navigation'
 import { AuthContext } from './utils/AuthContext';
 
@@ -19,7 +20,6 @@ const App = () => {
   `
   
   const [isLoggedIn, setLoggedIn] = useState(false);
-  const auth = useContext(AuthContext);
 
   const login = useCallback(() => setLoggedIn(true), []);
   const logout = useCallback(() => setLoggedIn(false), []);
@@ -40,7 +40,9 @@ const App = () => {
   }
   
   return (
-    <AuthContext.Provider>
+    <AuthContext.Provider
+      value={{isLoggedIn: isLoggedIn, login: login, logout: logout}}
+    >
       <Router>
         <Navigation />
         <Container>
@@ -57,8 +59,8 @@ const App = () => {
             <Route path="/me">
 
             </Route>
-            <Route path="/auth">
-
+            <Route path="/join">
+              <Join />
             </Route>
             <Redirect to="/" />
           </Switch>

@@ -1,6 +1,8 @@
 import React from "react";
 import styled from 'styled-components';
 
+import CenterContainer from '../components/shared/CenterContainer';
+
 const Main = () => {
   const POST = {
     content:
@@ -8,17 +10,7 @@ const Main = () => {
     writer: "Me",
     date: Date.now(),
   };
-  const CenterDiv = styled.div`
-    display: flex;
-    justify-context: center;
-    align-items: center;
-    text-align: center;
-    min-height: 100vh;
-    margin-top: 3em;
-    ${'' /* background-color: purple; */}
-    ${'' /* background-image: linear-gradient(135deg, #A6165E, #720B99); */}
-    ${'' /* background-image: radial-gradient(circle at top right, #A6165E, #720B99 62.5%); */}
-  `
+
   const BoldH1 = styled.h1`
     font-family: 'Berkshire Swash', cursive;
     color: white;
@@ -43,9 +35,9 @@ const Main = () => {
   `
   
   return (
-    <CenterDiv>
+    <CenterContainer>
       <BoldH1>{POST.content}</BoldH1>
-    </CenterDiv>
+    </CenterContainer>
   )
 };
 
