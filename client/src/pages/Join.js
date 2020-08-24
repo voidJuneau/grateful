@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import Card from '../components/shared/Card'
 import CenterContainer from '../components/shared/CenterContainer';
+import Card from '../components/shared/Card'
 import Input from '../components/shared/Input';
 import Button from '../components/shared/Button';
 
@@ -15,6 +15,7 @@ const Join = () => {
     <Card>
       
       <h2>{isLoginMode ? 'Log In' : 'Sign In'}</h2>
+      <hr />
       <form>
         <Input label='ID' type='text' />
         <Input label='Password' type='password' />

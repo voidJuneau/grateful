@@ -8,6 +8,7 @@ import {
 import styled from 'styled-components';
 
 import Main from './pages/Main'
+import NewPost from './pages/NewPost'
 import Posts from './pages/Posts'
 import Join from './pages/Join'
 import Navigation from './components/Navigation/Navigation'
@@ -51,7 +52,7 @@ const App = () => {
               <Main />
             </Route>
             <Route path="/new">
-
+              <NewPost />
             </Route>
             <Route path="/all">
               <Posts />
