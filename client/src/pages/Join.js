@@ -7,6 +7,8 @@ import Button from '../components/shared/Button';
 
 const Join = () => {
   const [isLoginMode, setLoginMode] = useState(true);
+  const [idValue, setIdValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
 
   const switchMode = () => {setLoginMode(prevMode => !prevMode)}
   
@@ -17,8 +19,8 @@ const Join = () => {
       <h2>{isLoginMode ? 'Log In' : 'Sign In'}</h2>
       <hr />
       <form>
-        <Input label='ID' type='text' required/>
-        <Input label='Password' type='password' required/>
+        <Input label='ID' type='text' value={idValue} onChange={e=>setIdValue(e.target.value)} required/>
+        <Input label='Password' type='password' value={passwordValue} onChange={e=>setPasswordValue(e.target.value)} required/>
         <Button type='submit'>{isLoginMode ? 'Login' : 'Signin'}</Button>
       </form>
         <Button onClick={switchMode}>Switch to {isLoginMode ? 'Sign in' : 'Log in'}</Button>
