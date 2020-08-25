@@ -17,8 +17,8 @@ const Join = () => {
       <h2>{isLoginMode ? 'Log In' : 'Sign In'}</h2>
       <hr />
       <form>
-        <Input label='ID' type='text' />
-        <Input label='Password' type='password' />
+        <Input label='ID' type='text' required/>
+        <Input label='Password' type='password' required/>
         <Button type='submit'>{isLoginMode ? 'Login' : 'Signin'}</Button>
       </form>
         <Button onClick={switchMode}>Switch to {isLoginMode ? 'Sign in' : 'Log in'}</Button>

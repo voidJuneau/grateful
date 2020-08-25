@@ -2,7 +2,6 @@ import React from 'react';
 
 import CenterContainer from '../components/shared/CenterContainer';
 import Card from '../components/shared/Card'
-import Input from '../components/shared/Input';
 import Button from '../components/shared/Button';
 
 const NewPost = () => {

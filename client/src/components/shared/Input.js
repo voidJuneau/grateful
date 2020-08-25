@@ -9,14 +9,22 @@ const Input = props => {
   `
 
   const Ainput = styled.input`
-  ${'' /* width: 100%; */}
+  width: 100%;
   float: left;
   margin-bottom: 1em;
   `
 
   return <React.Fragment>
     <Label>{props.label}</Label>
-    <Ainput type={props.type} required={props.required} placeholder={props.placeholder}/>
+    <Ainput 
+      type={props.type} 
+      required={props.required} 
+      placeholder={props.placeholder}
+      onChange={props.onChange}
+      value={props.value}
+      key={props.label}
+      id={props.label}
+    />
   </React.Fragment>
 };
 
