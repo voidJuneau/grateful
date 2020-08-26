@@ -5,14 +5,15 @@ import Button from '../shared/Button';
 
 const Post = props => {
   const [isEdit, setEdit] = useState(false);
-  const [isDelete, setDelete] = useState(false);
   const [editedContent, setContent] = useState('');
   const editPost = () => {
     setContent(props.data.content);
     setEdit(true);
   }
   const deletePost = post => {
-    setDelete(true);
+    if (window.confirm("Sure to delete?")) {
+      console.log('delete')
+    }
   }
   const saveEdit = () => {
     console.log(editedContent);
