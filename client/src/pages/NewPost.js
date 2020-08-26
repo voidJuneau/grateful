@@ -7,9 +7,6 @@ import Button from '../components/shared/Button';
 
 const NewPost = () => {
   const [content, setContent] = useState('');
-  const TextArea = styled.textarea`
-    width: 100%;
-  `
 
   const savePost = event => {
     event.preventDefault();
@@ -30,5 +27,9 @@ const NewPost = () => {
     </CenterContainer>
   );
 }
+
+const TextArea = styled.textarea`
+  width: 100%;
+`
 
 export default NewPost;
