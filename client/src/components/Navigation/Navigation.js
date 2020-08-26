@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import NavSide from './NavSide';
 import NavHeader from './NavHeader';
 import NavLinks from './NavLinks';
-import Backdrop from './Backdrop';
+import Backdrop from '../shared/Backdrop';
 
 const Navication = props => {
   const HambergerButton = styled.button`
