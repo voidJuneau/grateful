@@ -24,10 +24,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: 6
     },
-    privateDefault: {
-        type: Boolean,
-        required: true
-    }
+    posts: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Post'
+    }]
     ,
     tokens: [{
         token: {

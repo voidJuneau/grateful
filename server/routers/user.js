@@ -3,7 +3,7 @@ const User = require('../models/user');
 const auth = require('../middleware/auth');
 const router = express.Router();
 
-router.post('/api/user/signin', async (req, res) => {
+router.post('/signin', async (req, res) => {
     try {
         const user = new User(req.body);
         await user.save();
@@ -14,7 +14,7 @@ router.post('/api/user/signin', async (req, res) => {
     }
 })  
 
-router.get('/api/user/login', async (req, res) => {
+router.get('/login', async (req, res) => {
     try {
         const user = await User.findByCredentials(req.body.username, req.body.password);
         const token = await user.generateAuthToken();
@@ -24,11 +24,11 @@ router.get('/api/user/login', async (req, res) => {
     }
 })
 
-router.get('/api/user/me', auth, async (req, res) => {
+router.get('/me', auth, async (req, res) => {
     res.send(req.user)
 })
 
-router.post('/api/user/logout', auth, async (req, res) => {
+router.post('/logout', auth, async (req, res) => {
     try {
         req.user.tokens = req.user.tokens.filter(token => token.token != req.token);
         await req.user.save();
@@ -38,7 +38,7 @@ router.post('/api/user/logout', auth, async (req, res) => {
     }
 })
 
-router.get('api/user/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     // TODO: test
     let user = User.findById(req.params.id)
     if (user) {
@@ -48,7 +48,7 @@ router.get('api/user/:id', async (req, res) => {
     }
 })
 
-router.patch('api/user/:id', auth, async (req, res) => {
+router.patch('/:id', auth, async (req, res) => {
     if (req.params.id !== req.user._id) return res.status(400).send();
     // TODO : body
 })

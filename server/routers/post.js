@@ -4,7 +4,7 @@ const auth = require('../middleware/auth');
 const Task = require('../../../node/task-manager/src/models/task');
 const router = express.Router();
 
-router.post('/api/post/new', auth, async (req, res) => {
+router.post('/new', auth, async (req, res) => {
     const post = new Post({
         ...req.body,
         owner: req.user._id
@@ -17,7 +17,7 @@ router.post('/api/post/new', auth, async (req, res) => {
     }
 })
 
-router.get('/api/post/one', async (req, res) => {
+router.get('/one', async (req, res) => {
     // TODO: random
     Post.findOne({public: true}, async (err, post) => {
         if (err) return res.status(500).send(err);
@@ -25,7 +25,7 @@ router.get('/api/post/one', async (req, res) => {
     })
 })
 
-router.get('/api/post/all', async (req, res) => {
+router.get('/all', async (req, res) => {
     //(with auth) Post.find({$or:[{public: true}, {owner:req.user._id}]}, (err, posts) => {
     Post.find({public: true}, (err, posts) => {
         if (err) return res.status(500).send(err);
@@ -33,14 +33,14 @@ router.get('/api/post/all', async (req, res) => {
     })
 })
 
-router.get('/api/post/mine', auth, async (req, res) => {
+router.get('/mine', auth, async (req, res) => {
     Post.find({owner: req.user._id}, (err, posts) => {
         if (err) return res.status(500).send(err);
         res.send(posts);
     })
 })
 
-router.get('api/post/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     // TODO: test
     let post = User.findById(req.params.id)
     if (post) {
@@ -50,7 +50,7 @@ router.get('api/post/:id', async (req, res) => {
     }
 })
 
-router.patch('api/post/:id', auth, async (req, res) => {
+router.patch('/:id', auth, async (req, res) => {
     // TODO : body
 })
 
