@@ -10,17 +10,17 @@ router.post('/signin', async (req, res) => {
         const token = await user.generateAuthToken();
         res.status(201).send({user, token});
     } catch (e) {
-        res.status(400).send(e);
+        res.status(400).send({error: e.message});
     }
 })  
 
-router.get('/login', async (req, res) => {
+router.post('/login', async (req, res) => {
     try {
-        const user = await User.findByCredentials(req.body.username, req.body.password);
+        const user = await User.findByCredentials(req.body.userid, req.body.password);
         const token = await user.generateAuthToken();
         res.send({user, token});
     } catch (e) {
-        res.status(400).send(e);
+        res.status(400).send({error: e.message});
     }
 })
 
@@ -51,6 +51,10 @@ router.get('/:id', async (req, res) => {
 router.patch('/:id', auth, async (req, res) => {
     if (req.params.id !== req.user._id) return res.status(400).send();
     // TODO : body
+})
+
+router.get('/', (req, res) => {
+    res.send({message: 'user default'})
 })
 
 module.exports = router;
