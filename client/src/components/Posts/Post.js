@@ -1,23 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
+import { AuthContext } from '../../utils/AuthContext';
 import Button from '../shared/Button';
 
 const Post = props => {
+  const auth = useContext(AuthContext);
   const [isEdit, setEdit] = useState(false);
   const [editedContent, setContent] = useState('');
   const editPost = () => {
     setContent(props.data.content);
     setEdit(true);
   }
-  const deletePost = post => {
+  const deletePost = () => {
     if (window.confirm("Sure to delete?")) {
-      console.log('delete')
+      axios.delete('http://localhost:5000/api/post/' + props.data._id)
+      .then(res => console.log(res))
     }
   }
   const saveEdit = () => {
     console.log(editedContent);
     props.data.content = editedContent;
+    axios.patch('http://localhost:5000/api/post/' + props.data._id, {content: editedContent})
+    .then(res => console.log(res))
     setEdit(false);
   }
 
@@ -26,8 +32,11 @@ const Post = props => {
       <Info>
         <h3>{props.data.ownerName}</h3>
         <p>{props.data.date}</p>
-        <i className='fa fa-pencil' onClick={editPost}></i>
-        <i className='fa fa-trash-o' onClick={deletePost}></i>
+        {auth._id === props.data.owner_id &&
+        <React.Fragment>
+          <i className='fa fa-pencil' onClick={editPost}></i>
+          <i className='fa fa-trash-o' onClick={deletePost}></i>
+        </React.Fragment>}
       </Info>
         {!isEdit &&
       <Content>

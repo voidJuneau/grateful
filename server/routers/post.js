@@ -29,8 +29,7 @@ router.get("/all", async (req, res) => {
   //(with auth) Post.find({$or:[{public: true}, {owner:req.user._id}]}, (err, posts) => {
   let posts = await Post.find({ public: true }, (err, posts) => {
     if (err) return res.status(500).send(err);
-    // res.send(posts);
-  }).populate("owner");
+  }).sort({_id:-1}).limit(5).populate("owner");
   res.send(
     posts.map((post) => ({
       _id: post._id,
@@ -60,8 +59,21 @@ router.get("/user/:uid", async (req, res) => {
   }
 });
 
-router.patch("/:id", auth, async (req, res) => {
-  // TODO : body
+router.patch("/:pid", async (req, res) => {
+  let post = await Post.findById(req.params.pid);
+  if (!post) return res.status(400).send({error: 'No post of the request.'});
+  // if (req.user._id !== post.owner_id) return res.status(400).send({error: 'Cannot delete other\'s post.'});
+  post.content = req.body.content;
+  await post.save();
+  res.send(post);
+});
+
+router.delete("/:pid", async (req, res) => {
+  let post = await Post.findById(req.params.pid);
+  if (!post) return res.status(400).send({error: 'No post of the request.'});
+  // if (req.user._id !== post.owner_id) return res.status(400).send({error: 'Cannot delete other\'s post.'});
+  await post.remove();
+  res.send(post);
 });
 
 module.exports = router;
