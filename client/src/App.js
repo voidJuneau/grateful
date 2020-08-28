@@ -11,14 +11,11 @@ import Main from './pages/Main'
 import NewPost from './pages/NewPost'
 import Posts from './pages/Posts'
 import Join from './pages/Join'
+import Me from './pages/Me'
 import Navigation from './components/Navigation/Navigation'
 import { AuthContext } from './utils/AuthContext';
 
 const App = () => {  
-  const Container = styled.div`
-    margin: 5em auto 0 auto;
-    max-width: 768px;
-  `
   
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [_id, set_id] = useState();
@@ -36,18 +33,40 @@ const App = () => {
   }, []);
 
   let routes;
+
   if (isLoggedIn) {
     routes = (
-      <switch>
-        
-      </switch>
-    );
+      <Switch>
+        <Route path="/" exact>
+          <Main />
+        </Route>
+        <Route path="/new">
+          <NewPost />
+        </Route>
+        <Route path="/all">
+          <Posts />
+        </Route>
+        <Route path="/me">
+          <Me />
+        </Route>
+        <Redirect to="/" />
+      </Switch>
+    )
   } else {
     routes = (
-      <switch>
-
-      </switch>
-    );
+      <Switch>
+        <Route path="/" exact>
+          <Main />
+        </Route>
+        <Route path="/all">
+          <Posts />
+        </Route>
+        <Route path="/join">
+          <Join />
+        </Route>
+        <Redirect to="/" />
+      </Switch>
+    )
   }
   
   return (
@@ -57,28 +76,16 @@ const App = () => {
       <Router>
         <Navigation />
         <Container>
-          <Switch>
-            <Route path="/" exact>
-              <Main />
-            </Route>
-            <Route path="/new">
-              <NewPost />
-            </Route>
-            <Route path="/all">
-              <Posts />
-            </Route>
-            <Route path="/me">
-
-            </Route>
-            <Route path="/join">
-              <Join />
-            </Route>
-            <Redirect to="/" />
-          </Switch>
+          {routes}
         </Container>
       </Router>
     </AuthContext.Provider>
   )
 }
+
+const Container = styled.div`
+margin: 5em auto 0 auto;
+max-width: 768px;
+`
 
 export default App;
