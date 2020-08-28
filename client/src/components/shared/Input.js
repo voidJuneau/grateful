@@ -13,6 +13,7 @@ const Input = props => {
       value={props.value}
       key={props.label}
       id={props.label}
+      minlength={props.minlength}
     />
   </React.Fragment>
 };
