@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
+import { AuthContext } from '../utils/AuthContext';
 import CenterContainer from '../components/shared/CenterContainer';
-import Card from '../components/shared/Card'
+import Card from '../components/shared/Card';
 import Button from '../components/shared/Button';
 
 const NewPost = () => {
+  const auth = useContext(AuthContext);
   const [content, setContent] = useState('');
 
   const savePost = event => {
     event.preventDefault();
+    // axios.post('http://localhost:5000/api/post/new', {
+    //   content,
+    //   owner: auth._id
+    // }).then(res=>{
+
+    // })
     console.log(content)
   }
 

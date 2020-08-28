@@ -21,9 +21,19 @@ const App = () => {
   `
   
   const [isLoggedIn, setLoggedIn] = useState(false);
+  const [_id, set_id] = useState();
+  const [userid, setUserid] = useState();
 
-  const login = useCallback(() => setLoggedIn(true), []);
-  const logout = useCallback(() => setLoggedIn(false), []);
+  const login = useCallback((_id, userid) => {
+    setLoggedIn(true);
+    set_id(_id);
+    setUserid(userid);
+  }, []);
+  const logout = useCallback(() => {
+    setLoggedIn(false);
+    set_id(null);
+    setUserid(null);
+  }, []);
 
   let routes;
   if (isLoggedIn) {
@@ -42,7 +52,7 @@ const App = () => {
   
   return (
     <AuthContext.Provider
-      value={{isLoggedIn: isLoggedIn, login: login, logout: logout}}
+      value={{isLoggedIn, _id, userid, login, logout}}
     >
       <Router>
         <Navigation />
