@@ -10,7 +10,7 @@ const Me = () => {
 
   useEffect(() => {axios.get('http://localhost:5000/api/post/user/' + auth._id)
   .then(res => setPosts(res.data))
-  }, [])
+  }, [auth._id])
   let postList;
   if (!posts) {
     postList = <div>Loading . . .</div>
