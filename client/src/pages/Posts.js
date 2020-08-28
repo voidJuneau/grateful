@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import PostList from '../components/Posts/PostList';
 
 const Posts = props => {
-  const POSTS = [{
-    _id: 3415125,
-    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    ownerName: 'user0',
-    date: Date().toString().substring(0, 15)
-  }, {
-    _id: 34431,
-    content: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    ownerName: 'user1',
-    date: Date().toString().substring(0, 15)
-  }]
-  return <PostList data={POSTS}/>;
+  const [posts, setPosts] = useState();
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/post/all')
+    .then(res => setPosts(res.data))
+
+    if (!posts) {
+      return <div>asd</div>
+    } else {
+      return <PostList data={posts}/>
+    }
+  }, [])
 }
 
 export default Posts;
