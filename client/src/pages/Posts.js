@@ -10,7 +10,7 @@ const Posts = props => {
   .then(res => setPosts(res.data))
   }, [])
   if (!posts) {
-    return <div>asd</div>
+    return <div>Loading . . .</div>
   } else {
     return <PostList data={posts}/>
   }

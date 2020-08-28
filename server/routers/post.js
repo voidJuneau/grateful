@@ -42,18 +42,21 @@ router.get("/all", async (req, res) => {
   );
 });
 
-router.get("/mine", auth, async (req, res) => {
-  Post.find({ owner: req.user._id }, (err, posts) => {
-    if (err) return res.status(500).send(err);
-    res.send(posts);
-  });
-});
-
 router.get("/user/:uid", async (req, res) => {
-  // TODO: test
-  let post = Post.find({ owner: req.params.uid });
-  if (post) {
-    res.send(post);
+  let posts = await Post.find({ owner: req.params.uid }, (err, posts) => {
+    if (err) return res.status(500).send(err);
+  }).sort({_id:-1}).limit(5).populate("owner");
+  if (posts) {
+    res.send(
+      posts.map((post) => ({
+        _id: post._id,
+        content: post.content,
+        owner_id: post.owner._id,
+        ownerUserid: post.owner.userid,
+        ownerName: post.owner.name,
+        date: post._id.getTimestamp().toISOString().substring(0,10)
+      }))
+    );
   } else {
     res.status(400).send({ error: "no post of that user" });
   }

@@ -15,11 +15,14 @@ const NavLinks = props => {
         <NavLinkA to="/all">Everyone</NavLinkA>
       </Li>
       {auth.isLoggedIn && <Li>
-        <NavLinkA to="/me">Profile</NavLinkA>
+        <NavLinkA to="/me">My posts</NavLinkA>
       </Li>}
       {!auth.isLoggedIn && <Li>
         <NavLinkA to="/join">Start</NavLinkA>
       </Li>}
+      {auth.isLoggedIn && <li>
+        <NavLinkA to="/all" onClick={auth.logout}>Log out</NavLinkA>
+      </li>}
     </NavUl>
   );
 }
