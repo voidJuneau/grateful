@@ -4,10 +4,10 @@ const auth = require('../middleware/auth');
 const Task = require('../../../node/task-manager/src/models/task');
 const router = express.Router();
 
-router.post('/new', auth, async (req, res) => {
+router.post('/new', async (req, res) => {
     const post = new Post({
         ...req.body,
-        owner: req.user._id
+        // owner: req.user._id
     });
     try {
         await post.save();
@@ -40,13 +40,13 @@ router.get('/mine', auth, async (req, res) => {
     })
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/user/:uid', async (req, res) => {
     // TODO: test
-    let post = User.findById(req.params.id)
+    let post = Post.find({owner: req.params.uid})
     if (post) {
         res.send(post)
     } else {
-        res.status(400).send({error: "user not found"})
+        res.status(400).send({error: "no post of that user"})
     }
 })
 

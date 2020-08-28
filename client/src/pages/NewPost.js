@@ -13,13 +13,13 @@ const NewPost = () => {
 
   const savePost = event => {
     event.preventDefault();
-    // axios.post('http://localhost:5000/api/post/new', {
-    //   content,
-    //   owner: auth._id
-    // }).then(res=>{
-
-    // })
-    console.log(content)
+    axios.post('http://localhost:5000/api/post/new', {
+      content,
+      owner: auth._id
+    }).then(res=>{
+      // redirect to user page
+      console.log(res.data)
+    })
   }
 
   return (
