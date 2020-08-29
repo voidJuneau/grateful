@@ -7,10 +7,11 @@ import Button from "../shared/Button";
 
 const Post = (props) => {
   const auth = useContext(AuthContext);
+  const [content, setContent] = useState(props.data.content);
   const [isEdit, setEdit] = useState(false);
-  const [editedContent, setContent] = useState("");
+  const [editedContent, setEditedContent] = useState("");
   const editPost = () => {
-    setContent(props.data.content);
+    setEditedContent(props.data.content);
     setEdit(true);
   };
   const deletePost = () => {
@@ -24,8 +25,6 @@ const Post = (props) => {
     }
   };
   const saveEdit = () => {
-    console.log(editedContent);
-    props.data.content = editedContent;
     axios
       .patch("http://localhost:5000/api/post/" + props.data._id, {
         content: editedContent
@@ -33,7 +32,10 @@ const Post = (props) => {
         headers: {
         Authorization: 'Bearer ' + auth.token
       }})
-      .then((res) => console.log(res));
+      .then((res) => {
+        setContent(editedContent);
+      })
+      .catch(res => alert(res.response.data.error))
     setEdit(false);
   };
 
@@ -49,12 +51,12 @@ const Post = (props) => {
           </React.Fragment>
         )}
       </Info>
-      {!isEdit && <Content>{props.data.content}</Content>}
+      {!isEdit && <Content>{content}</Content>}
       {isEdit && (
         <Content>
           <Textarea
             value={editedContent}
-            onChange={(e) => setContent(e.target.value)}
+            onChange={(e) => setEditedContent(e.target.value)}
           />
           <Button onClick={saveEdit}>Save</Button>
           <Button onClick={() => setEdit(false)}>Cancel</Button>

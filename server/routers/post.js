@@ -66,8 +66,13 @@ router.patch("/:pid", auth, async (req, res) => {
   let post = await Post.findById(req.params.pid);
   if (!post) return res.status(400).send({error: 'No post of the request.'});
   if (req.user._id != post.owner.toString()) return res.status(400).send({error: 'Cannot edit other\'s post.'});
-  post.content = req.body.content;
-  await post.save();
+  try{
+    post.content = req.body.content;
+    await post.save();
+  } catch (err) {
+    console.log(err.message)
+    return res.status(400).send({error: err.message.split('content: ')[1]});
+  }
   res.send(post);
 });
 

@@ -1,11 +1,17 @@
 const mongoose = require('mongoose');
+const Filter = require('bad-words');
+
+const filter = new Filter();
 
 const postSchema = mongoose.Schema({
     content: {
         type: String,
         required: true,
-        trim: true
-        //TODO: bad word filter
+        trim: true,
+        minlength: 10,
+        validate(txt) {
+            if (filter.isProfane(txt)) throw new Error('You cannot use bad words.');
+        }
     },
     public: {
         type: Boolean,
