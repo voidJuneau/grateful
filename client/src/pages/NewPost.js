@@ -17,8 +17,9 @@ const NewPost = () => {
       content,
       owner: auth._id
     }, {
+      headers: {
       Authorization: 'Bearer ' + auth.token
-    }).then(res=>{
+    }}).then(res=>{
       // redirect to user page
       console.log(res.data)
     })
