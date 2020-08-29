@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -8,6 +9,7 @@ import Card from '../components/shared/Card';
 import Button from '../components/shared/Button';
 
 const NewPost = () => {
+  const history = useHistory();
   const auth = useContext(AuthContext);
   const [content, setContent] = useState('');
 
@@ -20,9 +22,9 @@ const NewPost = () => {
       headers: {
       Authorization: 'Bearer ' + auth.token
     }}).then(res=>{
-      // redirect to user page
-      console.log(res.data)
-    })
+      console.log(res.data);
+      history.push('./me');
+    }).catch(res => alert(res.response.data.errors.content.message))
   }
 
   return (
