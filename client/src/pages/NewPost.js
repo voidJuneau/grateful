@@ -16,6 +16,8 @@ const NewPost = () => {
     axios.post('http://localhost:5000/api/post/new', {
       content,
       owner: auth._id
+    }, {
+      Authorization: 'Bearer ' + auth.token
     }).then(res=>{
       // redirect to user page
       console.log(res.data)

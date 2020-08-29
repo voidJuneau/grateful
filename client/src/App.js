@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -17,24 +17,35 @@ import { AuthContext } from './utils/AuthContext';
 
 const App = () => {  
   
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [token, setToken] = useState(false);
   const [_id, set_id] = useState();
   const [userid, setUserid] = useState();
 
-  const login = useCallback((_id, userid) => {
-    setLoggedIn(true);
+  const login = useCallback((_id, userid, token, expire) => {
+    setToken(token);
     set_id(_id);
     setUserid(userid);
+    const exp = expire || new Date(new Date().getTime() + 1000 * 60 * 60);
+    localStorage.setItem('user', JSON.stringify({_id, userid, token, exp}));
   }, []);
+
   const logout = useCallback(() => {
-    setLoggedIn(false);
+    setToken(false);
     set_id(null);
     setUserid(null);
+    localStorage.removeItem('user');
   }, []);
+
+  useEffect(() => {
+    const stored = JSON.parse(localStorage.getItem('user'));
+    if (stored && stored.token && new Date(stored.exp).getTime() > new Date().getTime()) {
+      login(stored._id, stored.userid, stored.token, new Date(stored.exp))
+    }
+  }, [login])
 
   let routes;
 
-  if (isLoggedIn) {
+  if (token) {
     routes = (
       <Switch>
         <Route path="/" exact>
@@ -71,7 +82,7 @@ const App = () => {
   
   return (
     <AuthContext.Provider
-      value={{isLoggedIn, _id, userid, login, logout}}
+      value={{isLoggedIn:!!token, _id, userid, token, login, logout}}
     >
       <Router>
         <Navigation />

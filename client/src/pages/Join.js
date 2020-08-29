@@ -32,7 +32,7 @@ const Join = () => {
         })
         .then((res) => {
           console.log(res.data);
-          auth.login(res.data.user._id, res.data.user.userid);
+          auth.login(res.data.user._id, res.data.user.userid, res.data.token);
           history.push("/all");
         })
         .catch((res) => setError(res.response.data.error));
@@ -45,7 +45,7 @@ const Join = () => {
         })
         .then((res) => {
           console.log(res.data);
-          auth.login(res.data.user._id, res.data.user.userid);
+          auth.login(res.data.user._id, res.data.user.userid, res.data.token);
           history.push("/all");
         })
         .catch((res) => setError(res.response.data.error.split("Path ")[1]));
