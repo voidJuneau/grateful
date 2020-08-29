@@ -10,10 +10,12 @@ const Post = (props) => {
   const [content, setContent] = useState(props.data.content);
   const [isEdit, setEdit] = useState(false);
   const [editedContent, setEditedContent] = useState("");
+
   const editPost = () => {
     setEditedContent(props.data.content);
     setEdit(true);
   };
+
   const deletePost = () => {
     if (window.confirm("Sure to delete?")) {
       axios
@@ -21,7 +23,8 @@ const Post = (props) => {
           headers: {
           Authorization: 'Bearer ' + auth.token
         }})
-        .then((res) => console.log(res));
+        .then(() => window.location.reload(false))
+        .catch(res => alert(res.response.data.error))
     }
   };
   const saveEdit = () => {
@@ -32,9 +35,7 @@ const Post = (props) => {
         headers: {
         Authorization: 'Bearer ' + auth.token
       }})
-      .then((res) => {
-        setContent(editedContent);
-      })
+      .then((res) => setContent(editedContent))
       .catch(res => alert(res.response.data.error))
     setEdit(false);
   };
@@ -47,6 +48,7 @@ const Post = (props) => {
         {auth._id === props.data.owner_id && (
           <React.Fragment>
             <i className="fa fa-pencil" onClick={editPost}></i>
+            &nbsp;&nbsp;&nbsp;&nbsp;
             <i className="fa fa-trash-o" onClick={deletePost}></i>
           </React.Fragment>
         )}
