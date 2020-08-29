@@ -18,11 +18,15 @@ router.post("/new", async (req, res) => {
 });
 
 router.get("/one", async (req, res) => {
-  // TODO: random
-  Post.findOne({ public: true }, async (err, post) => {
-    if (err) return res.status(500).send(err);
-    res.send(post);
-  });
+  let index;
+  let post;
+  while (!post) {
+    index = Math.floor(Math.random() * 10);
+    post = await Post.findOne({ public: true }, (err, post) => {
+      if (err) return res.status(500).send(err);
+    }).skip(index);
+  }
+  res.send(post);
 });
 
 router.get("/all", async (req, res) => {

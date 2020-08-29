@@ -15,7 +15,7 @@ const NavLinks = props => {
         <NavLinkA to="/all">Everyone</NavLinkA>
       </Li>
       {auth.isLoggedIn && <Li>
-        <NavLinkA to="/me">My posts</NavLinkA>
+        <NavLinkA to="/me">My moments</NavLinkA>
       </Li>}
       {!auth.isLoggedIn && <Li>
         <NavLinkA to="/join">Start</NavLinkA>
@@ -46,13 +46,17 @@ const Li = styled.li`
   }
 `
 const NavLinkA = styled(NavLink)`
-  font-family: 'Montserrat', Verdana, sans-serif;
-  font-weight: 600;
+  font-family: 'Impact', Verdana, sans-serif;
+  font-size: 1.3em;
+  font-weight: 200;
   color: #A6165E;
   text-decoration: none;
   padding: 0.5em;
   @media (min-width: 768px) {
     color: white;
+  }
+  &:hover {
+    color: lightpink;
   }
 `
 
