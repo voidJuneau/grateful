@@ -35,8 +35,10 @@ const Post = (props) => {
         headers: {
         Authorization: 'Bearer ' + auth.token
       }})
-      .then((res) => setContent(editedContent))
-      .catch(res => alert(res.response.data.error))
+      .then((res) => {
+        props.data.content = editedContent;
+        setContent(editedContent);
+      }).catch(res => alert(res.response.data.error))
     setEdit(false);
   };
 
