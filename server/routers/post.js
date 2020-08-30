@@ -2,13 +2,11 @@ const express = require("express");
 const Post = require("../models/post");
 const auth = require("../middleware/auth");
 const Task = require("../../../node/task-manager/src/models/task");
+const { findById } = require("../models/post");
 const router = express.Router();
 
-router.post("/new", async (req, res) => {
-  const post = new Post({
-    ...req.body,
-    // owner: req.user._id
-  });
+router.post("/new", auth, async (req, res) => {
+  const post = new Post({...req.body});
   try {
     await post.save();
     res.status(201).send(post);
@@ -33,7 +31,7 @@ router.get("/all", async (req, res) => {
   //(with auth) Post.find({$or:[{public: true}, {owner:req.user._id}]}, (err, posts) => {
   let posts = await Post.find({ public: true }, (err, posts) => {
     if (err) return res.status(500).send(err);
-  }).sort({_id:-1}).limit(5).populate("owner");
+  }).sort({_id:-1}).limit(10).populate("owner");
   res.send(
     posts.map((post) => ({
       _id: post._id,
@@ -44,26 +42,6 @@ router.get("/all", async (req, res) => {
       date: post._id.getTimestamp().toISOString().substring(0,10)
     }))
   );
-});
-
-router.get("/user/:uid", async (req, res) => {
-  let posts = await Post.find({ owner: req.params.uid }, (err, posts) => {
-    if (err) return res.status(500).send(err);
-  }).sort({_id:-1}).limit(5).populate("owner");
-  if (posts) {
-    res.send(
-      posts.map((post) => ({
-        _id: post._id,
-        content: post.content,
-        owner_id: post.owner._id,
-        ownerUserid: post.owner.userid,
-        ownerName: post.owner.name,
-        date: post._id.getTimestamp().toISOString().substring(0,10)
-      }))
-    );
-  } else {
-    res.status(400).send({ error: "no post of that user" });
-  }
 });
 
 router.patch("/:pid", auth, async (req, res) => {

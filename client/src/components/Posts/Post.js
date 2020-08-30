@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { Link } from 'react-router-dom';
 import styled from "styled-components";
 import axios from "axios";
 
@@ -27,6 +28,7 @@ const Post = (props) => {
         .catch(res => alert(res.response.data.error))
     }
   };
+  
   const saveEdit = () => {
     axios
       .patch("http://localhost:5000/api/post/" + props.data._id, {
@@ -45,7 +47,7 @@ const Post = (props) => {
   return (
     <Box>
       <Info>
-        <h3>{props.data.ownerName}</h3>
+        <LinkA to={`/user/${props.data.ownerUserid}`}><h3>{props.data.ownerName}</h3></LinkA>
         <p>{props.data.date}</p>
         {auth._id === props.data.owner_id && (
           <React.Fragment>
@@ -103,5 +105,8 @@ const Content = styled.div`
 const Textarea = styled.textarea`
   width: 100%;
 `;
-
+const LinkA = styled(Link)`
+  color: black;
+  text-decoration: none;
+`
 export default Post;

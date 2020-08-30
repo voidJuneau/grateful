@@ -24,10 +24,6 @@ router.post('/login', async (req, res) => {
     }
 })
 
-router.get('/me', auth, async (req, res) => {
-    res.send(req.user)
-})
-
 router.post('/logout', auth, async (req, res) => {
     try {
         req.user.tokens = req.user.tokens.filter(token => token.token != req.token);
@@ -38,11 +34,18 @@ router.post('/logout', auth, async (req, res) => {
     }
 })
 
-router.get('/:id', async (req, res) => {
-    // TODO: test
-    let user = User.findById(req.params.id)
+router.get('/:userid', async (req, res) => {
+    const user = await User.findOne({userid: req.params.userid}).populate('posts')
     if (user) {
-        res.send(user)
+        const posts = user.posts.map((post) => ({
+            _id: post._id,
+            content: post.content,
+            owner_id: user._id,
+            ownerUserid: user.userid,
+            ownerName: user.name,
+            date: post._id.getTimestamp().toISOString().substring(0,10)
+          }))
+        res.send({user, posts})
     } else {
         res.status(400).send({error: "user not found"})
     }

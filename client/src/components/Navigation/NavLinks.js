@@ -15,7 +15,7 @@ const NavLinks = props => {
         <NavLinkA to="/all">Everyone</NavLinkA>
       </Li>
       {auth.isLoggedIn && <Li>
-        <NavLinkA to="/me">My moments</NavLinkA>
+        <NavLinkA to={`/user/${auth.userid}`}>My moments</NavLinkA>
       </Li>}
       {!auth.isLoggedIn && <Li>
         <NavLinkA to="/join">Start</NavLinkA>

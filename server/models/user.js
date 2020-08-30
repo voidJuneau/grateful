@@ -23,11 +23,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 6
-    },
-    posts: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Post'
-    }]
+    }
     ,
     tokens: [{
         token: {
@@ -35,6 +31,12 @@ const userSchema = new mongoose.Schema({
             required: true
         }
     }]
+})
+
+userSchema.virtual('posts', {
+    ref: 'Post',
+    localField: '_id',
+    foreignField: 'owner'
 })
 
 userSchema.pre('save', async function(next) {

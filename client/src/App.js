@@ -12,6 +12,7 @@ import NewPost from './pages/NewPost'
 import Posts from './pages/Posts'
 import Join from './pages/Join'
 import Me from './pages/Me'
+import User from './pages/User'
 import Navigation from './components/Navigation/Navigation'
 import { AuthContext } from './utils/AuthContext';
 
@@ -57,10 +58,10 @@ const App = () => {
         <Route path="/all">
           <Posts />
         </Route>
-        <Route path="/me">
-          <Me />
+        <Route path="/user/:userid">
+          <User />
         </Route>
-        <Redirect to="/" />
+        <Redirect to="/all" />
       </Switch>
     )
   } else {
@@ -74,6 +75,9 @@ const App = () => {
         </Route>
         <Route path="/join">
           <Join />
+        </Route>
+        <Route path="/user/:userid">
+          <User userid={userid} />
         </Route>
         <Redirect to="/" />
       </Switch>

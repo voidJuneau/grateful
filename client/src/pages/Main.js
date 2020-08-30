@@ -22,7 +22,7 @@ const Main = () => {
 const BoldH1 = styled.h1`
   font-family: 'Berkshire Swash', cursive;
   color: white;
-  font-size: 2em;
+  font-size: 3em;
   letter-spacing: 0.1em;
   color: white;
   background-color: purple;
@@ -35,10 +35,10 @@ const BoldH1 = styled.h1`
   -moz-text-fill-color: transparent;
 
   @media (min-width: 768px) {
-    font-size: 4em;
+    font-size: 5em;
   }
   @media (min-width: 576px) {
-    font-size: 3em;
+    font-size: 4em;
   }
 `
 
