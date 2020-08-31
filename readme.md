@@ -1,5 +1,5 @@
 # Greatful
-> A full stack web application with NoSQLDB to help mental problem
+> A full stack web application with NoSQL DB to help mental problem
 - node.js
 - Express.js
 - Mongodb
