@@ -20,7 +20,7 @@ const Post = (props) => {
   const deletePost = () => {
     if (window.confirm("Sure to delete?")) {
       axios
-        .delete("http://localhost:5000/api/post/" + props.data._id, {
+        .delete(process.env.REACT_APP_BACKEND_URL + "/api/post/" + props.data._id, {
           headers: {
           Authorization: 'Bearer ' + auth.token
         }})
@@ -31,7 +31,7 @@ const Post = (props) => {
   
   const saveEdit = () => {
     axios
-      .patch("http://localhost:5000/api/post/" + props.data._id, {
+      .patch(process.env.REACT_APP_BACKEND_URL + "/api/post/" + props.data._id, {
         content: editedContent
       }, {
         headers: {

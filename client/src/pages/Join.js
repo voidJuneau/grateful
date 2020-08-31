@@ -26,7 +26,7 @@ const Join = () => {
     e.preventDefault();
     if (isLoginMode) {
       axios
-        .post("http://localhost:5000/api/user/login", {
+        .post(process.env.REACT_APP_BACKEND_URL + "/api/user/login", {
           userid: idValue,
           password: passwordValue,
         })
@@ -38,7 +38,7 @@ const Join = () => {
         .catch((res) => setError(res.response.data.error));
     } else {
       axios
-        .post("http://localhost:5000/api/user/signin", {
+        .post(process.env.REACT_APP_BACKEND_URL + "/api/user/signin", {
           userid: idValue,
           name: nameValue,
           password: passwordValue,

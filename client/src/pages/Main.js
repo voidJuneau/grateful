@@ -8,7 +8,7 @@ const Main = () => {
   const [content, setContent] = useState();
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/post/one')
+    axios.get(process.env.REACT_APP_BACKEND_URL + '/api/post/one')
     .then(res => setContent(res.data.content))
   }, [])
   

@@ -6,7 +6,7 @@ import PostList from '../components/Posts/PostList';
 const Posts = props => {
   const [posts, setPosts] = useState();
 
-  useEffect(() => {axios.get('http://localhost:5000/api/post/all')
+  useEffect(() => {axios.get(process.env.REACT_APP_BACKEND_URL + '/api/post/all')
   .then(res => setPosts(res.data))
   }, [])
   if (!posts) {

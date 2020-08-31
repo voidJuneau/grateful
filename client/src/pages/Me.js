@@ -9,7 +9,7 @@ const Me = () => {
   const [posts, setPosts] = useState();
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/post/user/' + auth._id)
+    axios.get(process.env.REACT_APP_BACKEND_URL + '/api/post/user/' + auth._id)
     .then(res => setPosts(res.data))
   }, [auth._id])
   

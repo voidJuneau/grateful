@@ -13,7 +13,7 @@ const User = props => {
   const { userid } = useParams();
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/user/' + userid)
+    axios.get(process.env.REACT_APP_BACKEND_URL + '/api/user/' + userid)
     .then(res => {
       setPosts(res.data.posts)
       setUser(res.data.user)

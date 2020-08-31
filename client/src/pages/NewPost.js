@@ -15,7 +15,7 @@ const NewPost = () => {
 
   const savePost = event => {
     event.preventDefault();
-    axios.post('http://localhost:5000/api/post/new', {
+    axios.post(process.env.REACT_APP_BACKEND_URL + '/api/post/new', {
       content,
       owner: auth._id
     }, {

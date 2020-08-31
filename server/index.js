@@ -1,3 +1,6 @@
+
+const path = require('path');
+
 const express = require('express');
 const bodyParser = require('body-parser');
 require('./db/mongoose');
@@ -12,6 +15,8 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.json());
 
+app.use(express.static(path.join(__dirname, '../client/build')));
+
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization')
@@ -22,10 +27,9 @@ app.use((req, res, next) => {
 app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
 
-app.get('/', (req, res) => {
-    res.send({message: 'default'})
-})
-
+app.use((req, res, next) => {
+    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+});
 
 app.listen(port, () => {
     console.log('Server is up on port ' + port)
