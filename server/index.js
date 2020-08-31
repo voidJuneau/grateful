@@ -15,7 +15,7 @@ const app = express();
 app.use(express.json());
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join('public')));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -28,7 +28,7 @@ app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
 
 app.use((req, res, next) => {
-    res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
 });
 
 app.listen(port, () => {

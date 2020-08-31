@@ -7,7 +7,7 @@
     "client": "cd client && npm start",
     "server": "nodemon -r dotenv/config server/index.js -e js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "start": "node server/index.js"
+    "start": "nodemon -r dotenv/config server/index.js -e js"
   },
   "keywords": [],
   "author": "",
